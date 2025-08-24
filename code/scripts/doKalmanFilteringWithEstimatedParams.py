@@ -14,7 +14,8 @@ def main(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument("--est_res_num", type=int,
                         help="estimation result number",
-                        default=97359715)
+                        default=11554866)
+                        # default=97359715)
                         # default=6964116)
                         # default=40905723)
                         # default=51082693)
@@ -56,9 +57,6 @@ def main(argv):
 
     filter_res = ssm.inference.filterLDS_SS_withMissingValues_np(
         y=data.T, B=B, Q=Q, m0=m0, V0=V0, Z=Z, R=R)
-    filter_res["bin_centers"] = bin_centers
-
-    breakpoint()
 
     # save results
     res_prefix_used = True
@@ -69,8 +67,10 @@ def main(argv):
             res_prefix_used = False
     results_filename = results_filename_pattern.format(res_num, "pickle")
 
+    results = dict(xnn=filter_res["xnn"], Pnn=filter_res["Pnn"],
+                   bin_centers=bin_centers, logLike=filter_res["logLike"])
     with open(results_filename, "wb") as f:
-        pickle.dump(filter_res, f)
+        pickle.dump(results, f)
     print(f"Saved Kalman filter results to {results_filename}")
 
     metadata = configparser.ConfigParser()
