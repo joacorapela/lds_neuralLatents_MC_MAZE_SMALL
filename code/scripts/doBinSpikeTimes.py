@@ -17,8 +17,8 @@ def main(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument("--dandiset_ID", help="dandiset ID", type=str,
                         default="000140")
-    parser.add_argument("--filepath", help="dandi filepath", type=str,
-                        default="../../data/000140/sub-Jenkins/sub-Jenkins_ses-small_desc-train_behavior+ecephys.nwb")
+    parser.add_argument("--filepath_pattern", help="dandi filepath", type=str,
+                        default="../../data/{:s}/sub-Jenkins/sub-Jenkins_ses-small_desc-train_behavior+ecephys.nwb")
     parser.add_argument("--bin_size", help="bin size (secs)", type=float,
                         default=0.02)
     parser.add_argument("--skip_sqrt_transform",
@@ -28,12 +28,13 @@ def main(argv):
     args = parser.parse_args()
 
     dandiset_ID = args.dandiset_ID
-    filepath = args.filepath
+    filepath_pattern = args.filepath_pattern
     bin_size = args.bin_size
     skip_sqrt_transform = args.skip_sqrt_transform
     save_filename = args.save_filename_pattern.format(dandiset_ID, bin_size,
                                                       skip_sqrt_transform)
 
+    filepath = filepath_pattern.format(dandiset_ID)
     #%%
     # Download data
     # ^^^^^^^^^^^^^
