@@ -44,7 +44,6 @@ def main(argv):
     R = optim_res["R"]
     m0 = optim_res["m0"]
     V0 = optim_res["V0"]
-    log_like = optim_res["log_like"]
 
     load_res = np.load(binned_spikes_filename)
     data = load_res["binned_spikes"].T
@@ -67,7 +66,8 @@ def main(argv):
             res_prefix_used = False
     results_filename = results_filename_pattern.format(res_num, "pickle")
 
-    results = dict(xnn=filter_res["xnn"], Pnn=filter_res["Pnn"],
+    results = dict(xnn1=filter_res["xnn1"], Pnn1=filter_res["Pnn1"],
+                   xnn=filter_res["xnn"], Pnn=filter_res["Pnn"], 
                    bin_centers=bin_centers, logLike=filter_res["logLike"])
     with open(results_filename, "wb") as f:
         pickle.dump(results, f)

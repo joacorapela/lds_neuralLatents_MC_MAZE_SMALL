@@ -17,8 +17,8 @@ def main(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument("--dandiset_ID", help="dandiset ID", type=str,
                         default="000140")
-    parser.add_argument("--filepath", help="dandi filepath", type=str,
-                        default="../../data/000140/sub-Jenkins/sub-Jenkins_ses-small_desc-train_behavior+ecephys.nwb")
+    parser.add_argument("--filepath_pattern", help="dandi filepath", type=str,
+                        default="../../data/{:s}/sub-Jenkins/sub-Jenkins_ses-small_desc-train_behavior+ecephys.nwb")
     parser.add_argument("--events_names_to_plot",
                         help="names of events to plot", type=str,
                         default="start_time,stop_time")
@@ -28,10 +28,11 @@ def main(argv):
     args = parser.parse_args()
 
     dandiset_ID = args.dandiset_ID
-    filepath = args.filepath
+    filepath_pattern = args.filepath_pattern
     events_names_to_plot = args.events_names_to_plot.split(",")
     events_linetypes_to_plot = args.events_linetypes_to_plot.split(",")
 
+    filepath = filepath_pattern.format(dandiset_ID)
     #%%
     # Download data
     # ^^^^^^^^^^^^^
