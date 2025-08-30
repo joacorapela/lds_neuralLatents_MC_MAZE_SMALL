@@ -20,7 +20,8 @@ def main(argv):
                         default="dot,dash,dashdot,longdash,solid")
     parser.add_argument("--filtered_data_number", type=int,
                         help="number corresponding to filtered results filename",
-                        default=26118000)
+                        default=49497641)
+                        # default=26118000)
                         # default=59816097)
     parser.add_argument("--variable", type=str, default="state",
                         help="variable to plot: state")
